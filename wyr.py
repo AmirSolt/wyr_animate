@@ -8,9 +8,6 @@ class Prompt:
         self.text = text
         self.img = img
         self.perc = perc
-        
-    def draw_img(self):
-        pass
     
     def get_dict(self):
         return {
@@ -36,15 +33,7 @@ class WYR:
         path = config.WYRS_DIR + filename
         utils.write_json(path, self.get_dict())
         
-    def animate(self):
+    def draw_img(self):
         pass
         
         
-WYR(
-    Prompt(
-
-    ),
-    Prompt(
-
-    ),
-)
