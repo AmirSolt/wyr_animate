@@ -1,10 +1,21 @@
 import os
 import pickle
 import json
+import glob
+import re
 
 
+def order_files_by_num(files:list[str])->list[str]:
+    files.sort(key=lambda f: int(re.sub('\D', '', f)))
+    return files
 
+def wipe_dir(dir_path):
+    files = glob.glob(f"{dir_path}*")
+    for f in files:
+        os.remove(f)
 
+def get_all_files(dir_path):
+    return glob.glob(f"{dir_path}*")
 
 def get_all_dirs(directory_path):
     return [d for d in os.listdir(directory_path) if os.path.isdir(os.path.join(directory_path, d))]
