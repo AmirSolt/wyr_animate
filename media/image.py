@@ -12,7 +12,20 @@ def draw_text_bg(draw, text_pos, text, font, text_bg_color="white", text_bg_padd
     p = text_bg_padding
     draw.rounded_rectangle((text_box[0]-p, text_box[1]-p, text_box[2]+p, text_box[3]+p), fill=text_bg_color, radius=12)
 
+def wrap_text(text, line_letter_count=15):
+    words = text.split(" ")
 
+    char_count = 0
+    ntext = ""
+    for word in words:
+        divider = " "
+        char_count += len(word)
+        if char_count >= line_letter_count:
+            char_count = 0
+            divider = " \n"
+        ntext += word + divider
+    
+    return ntext
 
 def draw_wyr(wyr, save_path):
     
@@ -29,13 +42,13 @@ def draw_wyr(wyr, save_path):
     def get_img_pos(init_pos, img, textbox_sizes, is_img_top=True):
         coef = 1 if is_img_top else -1
         x = init_pos[0]
-        y = init_pos[1] - textbox_sizes[1]*3*coef
+        y = init_pos[1] - text_padding*coef
         return center_box((x,y),(img.width, img.height))
 
     def get_text_pos(init_pos, img, textbox_sizes, is_img_top=True):
         coef = -1 if is_img_top else 1
         x = init_pos[0]
-        y = init_pos[1] - img.height//2*coef + textbox_sizes[1]*coef
+        y = init_pos[1] - img.height//2*coef 
         return center_box((x,y),(textbox_sizes[0], textbox_sizes[1]))
 
 
@@ -43,8 +56,8 @@ def draw_wyr(wyr, save_path):
 
     prompt1_img_path = wyr.prompt1.img
     prompt2_img_path = wyr.prompt2.img
-    prompt1_text = wyr.prompt1.text
-    prompt2_text = wyr.prompt2.text
+    prompt1_text = wrap_text(wyr.prompt1.text)
+    prompt2_text = wrap_text(wyr.prompt2.text)
 
     
     img = Image.open(template_img_path)
@@ -55,6 +68,7 @@ def draw_wyr(wyr, save_path):
     prompt_width = (img.width//4)*3
     prompt_height = (img.width//8)*3
     font_size = 120
+    text_padding = img.height//20
 
     # init draw text
     provided_font = ImageFont.truetype(font_path, font_size)

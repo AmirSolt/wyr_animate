@@ -34,7 +34,7 @@ frames:list[Frame] = [
             perc=38,
         ),
         Prompt(
-            text="win the lottery, but never find love",
+            text="win the lottery but never find love",
             img="./data/imgs/test1.png",
             perc=62,
         ),

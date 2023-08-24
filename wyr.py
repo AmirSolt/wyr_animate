@@ -58,7 +58,8 @@ class WYR(Frame):
     def make_sound(self, index:int):
         file_path = config.TEMP_DIR+f"{index}{config.WYR_SOUND_INDICATOR}" + ".mp3"
         conc_file_path = config.TEMP_DIR+f"{index}{config.WYR_CONCLUSION_SOUND_INDICATOR}" + ".mp3"
-        text = f"Would you rather, {self.prompt1.text} or {self.prompt2.text}."
+        text = f"Would you rather, {self.prompt1.text}, or, {self.prompt2.text}."
+        print(f">>>> {text}")
         sound.make_wyr_audio(text, file_path)
         sound.make_wyr_conc_audio(conc_file_path)
         
