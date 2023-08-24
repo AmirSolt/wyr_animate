@@ -80,7 +80,7 @@ def make_cta_adio(filepath:str):
     success_path = config.SOUNDS_DIR + "correct_short.mp3"
     final_audio = concatenate_audioclips([
         AudioFileClip(success_path),
-        silent(duration=4),
+        silent(duration=2.5),
     ])
     final_audio.write_audiofile(filepath)
 
