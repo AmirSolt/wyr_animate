@@ -64,54 +64,54 @@ frames:list[Frame] = [
         ),
     ),
     CTA(text="Follow for more \n\n            :)"),
-    WYR(
-        Prompt(
-            text="have no internet",
-            img="./data/imgs/test0.png",
-            perc=56,
-        ),
-        Prompt(
-            text="never shower again",
-            img="./data/imgs/test1.png",
-            perc=44,
-        ),
-    ),
-    WYR(
-        Prompt(
-            text="know the date of your death",
-            img="./data/imgs/test0.png",
-            perc=82,
-        ),
-        Prompt(
-            text="know the cause of your death",
-            img="./data/imgs/test1.png",
-            perc=18,
-        ),
-    ),
-    WYR(
-        Prompt(
-            text="Always have to use sandpaper as toilet paper",
-            img="./data/imgs/test0.png",
-            perc=49,
-        ),
-        Prompt(
-            text="Always have to use hot sauce as eye drops",
-            img="./data/imgs/test1.png",
-            perc=51,
-        ),
-    ),
-    WYR(
-        Prompt(
-            text="let your parents die",
-            img="./data/imgs/test0.png",
-            perc=29,
-        ),
-        Prompt(
-            text="have sex with them",
-            img="./data/imgs/test1.png",
-            perc=71,
-        ),
-    ),
+    # WYR(
+    #     Prompt(
+    #         text="have no internet",
+    #         img="./data/imgs/test0.png",
+    #         perc=56,
+    #     ),
+    #     Prompt(
+    #         text="never shower again",
+    #         img="./data/imgs/test1.png",
+    #         perc=44,
+    #     ),
+    # ),
+    # WYR(
+    #     Prompt(
+    #         text="know the date of your death",
+    #         img="./data/imgs/test0.png",
+    #         perc=82,
+    #     ),
+    #     Prompt(
+    #         text="know the cause of your death",
+    #         img="./data/imgs/test1.png",
+    #         perc=18,
+    #     ),
+    # ),
+    # WYR(
+    #     Prompt(
+    #         text="Always have to use sandpaper as toilet paper",
+    #         img="./data/imgs/test0.png",
+    #         perc=49,
+    #     ),
+    #     Prompt(
+    #         text="Always have to use hot sauce as eye drops",
+    #         img="./data/imgs/test1.png",
+    #         perc=51,
+    #     ),
+    # ),
+    # WYR(
+    #     Prompt(
+    #         text="always be the center of attention",
+    #         img="./data/imgs/test0.png",
+    #         perc=38,
+    #     ),
+    #     Prompt(
+    #         text="always be ignored",
+    #         img="./data/imgs/test1.png",
+    #         perc=62,
+    #     ),
+    # ),
 ]
 
 main()

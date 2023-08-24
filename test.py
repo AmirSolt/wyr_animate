@@ -1,28 +1,21 @@
-import pyttsx3
-engine = pyttsx3.init() # object creation
+from media import image
+from wyr import Frame, WYR, Prompt, CTA
 
-""" RATE"""
-rate = engine.getProperty('rate')   # getting details of current speaking rate
-print (rate)                        #printing current voice rate
-engine.setProperty('rate', 125)     # setting up new voice rate
+wyr = WYR(
+        Prompt(
+            text="find true love",
+            img="./data/imgs/test0.png",
+            perc=38,
+        ),
+        Prompt(
+            text="win the lottery, but never find love",
+            img="./data/imgs/test1.png",
+            perc=62,
+        ),
+    )
 
+cta = CTA(text="Follow for more \n\n            :)")
 
-"""VOLUME"""
-volume = engine.getProperty('volume')   #getting to know current volume level (min=0 and max=1)
-print (volume)                          #printing current volume level
-engine.setProperty('volume',1.0)    # setting up volume level  between 0 and 1
-
-"""VOICE"""
-voices = engine.getProperty('voices')       #getting details of current voice
-#engine.setProperty('voice', voices[0].id)  #changing index, changes voices. o for male
-engine.setProperty('voice', voices[0].id)   #changing index, changes voices. 1 for female
-
-engine.say("would you rather, find true love. OR . win the lottery, but never find love.")
-engine.runAndWait()
-engine.stop()
-
-
-"""Saving Voice to a file"""
-# On linux make sure that 'espeak' and 'ffmpeg' are installed
-engine.save_to_file('Hello World', 'test.mp3')
-engine.runAndWait()
+image.draw_wyr(wyr, "./test/test.png")
+image.draw_wyr_conclusion(wyr, "./test/test2.png")
+image.draw_cta(cta, "./test/test3.png")
