@@ -1,8 +1,6 @@
 
 from helper import config, utils
-import requests
 from moviepy.editor import *
-import pydub
 from pydub import AudioSegment
 import time
 from pathlib import PurePath
@@ -51,15 +49,13 @@ def make_wyr_audio(text:str, filepath:str):
     generate_tts(text, tts_filepath)
     
     start_ding_path = config.SOUNDS_DIR + "score.mp3"
-    finish_ding_path = config.SOUNDS_DIR + "score2.mp3"
+    finish_ding_path = config.SOUNDS_DIR + "timer.mp3"
     
     final_audio = concatenate_audioclips([
         AudioFileClip(start_ding_path),
-        silent(duration=1),
-        AudioFileClip(tts_filepath),
-        silent(duration=3),
-        AudioFileClip(finish_ding_path),
-        AudioFileClip(finish_ding_path),
+        silent(duration=0.2),
+        AudioFileClip(tts_filepath).volumex(1.5),
+        silent(duration=0.2),
         AudioFileClip(finish_ding_path),
     ])
     
@@ -71,7 +67,7 @@ def make_wyr_conc_audio(filepath:str):
     success_path = config.SOUNDS_DIR + "correct_short.mp3"
     final_audio = concatenate_audioclips([
         AudioFileClip(success_path),
-        silent(duration=1.5),
+        silent(duration=1),
     ])
     final_audio.write_audiofile(filepath)
 
@@ -80,7 +76,7 @@ def make_cta_adio(filepath:str):
     success_path = config.SOUNDS_DIR + "correct_short.mp3"
     final_audio = concatenate_audioclips([
         AudioFileClip(success_path),
-        silent(duration=2.5),
+        silent(duration=2),
     ])
     final_audio.write_audiofile(filepath)
 

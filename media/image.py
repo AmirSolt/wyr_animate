@@ -13,7 +13,7 @@ def draw_text_bg(draw, text_pos, text, font, text_bg_color="white", text_bg_padd
     p = text_bg_padding
     draw.rounded_rectangle((text_box[0]-p, text_box[1]-p, text_box[2]+p, text_box[3]+p), fill=text_bg_color, radius=12)
 
-def wrap_text(text, line_letter_count=8):
+def wrap_text(text, line_letter_count=10):
     words = text.split(" ")
 
     char_count = 0
