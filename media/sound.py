@@ -7,12 +7,13 @@ from pydub import AudioSegment
 import time
 from pathlib import PurePath
 import numpy as np
+from gradio_client import Client
 from moviepy.audio.AudioClip import AudioArrayClip
+from dotenv import load_dotenv
+load_dotenv()
 
 
-API_TOKEN = "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"
-API_URL = "https://api-inference.huggingface.co/models/facebook/fastspeech2-en-ljspeech"
-headers = {"Authorization": f"Bearer {API_TOKEN}"}
+client = Client(os.getenv("HUGGINGFACE_SPACE_URL"))
 
 
 def silent(duration:float)->AudioArrayClip:
@@ -31,16 +32,13 @@ def wait_until_file_exists(temp_tts_filepath, timeout, period=0.5):
 def generate_tts(text:str, tts_filepath:str):
     utils.wipe_dir(config.TRASH_DIR)
     
-    payload = {"inputs": text,}
-    response = requests.post(API_URL, headers=headers, json=payload)
-    
-    temp_tts_filepath = config.TRASH_DIR+"temp_tts.flac"
-    with open(temp_tts_filepath, 'wb') as audio:
-        audio.write(response.content)
+    temp_tts_filepath = client.predict(
+				text,	# str in 'Input' Textbox component
+				api_name="/predict"
+    )
     
     wait_until_file_exists(temp_tts_filepath, 1)
     
-
     song = AudioSegment.from_file(temp_tts_filepath)
     song.export(tts_filepath, format="mp3")
 
