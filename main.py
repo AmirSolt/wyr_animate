@@ -12,8 +12,8 @@ def main():
     utils.create_dir_if_not_exist(config.DATA_DIR)
     utils.create_dir_if_not_exist(config.TRASH_DIR)
     
-    for frame in frames:
-        frame.save()
+    # for frame in frames:
+    #     frame.save()
 
     utils.wipe_dir(config.TEMP_DIR)
     for i, frame in enumerate(frames):
