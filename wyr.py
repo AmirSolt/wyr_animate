@@ -67,7 +67,7 @@ class WYR(Frame):
         frame_path = config.TEMP_DIR+f"{index}{config.WYR_INDICATOR}.png"
         conclusion_path = config.TEMP_DIR+f"{index}{config.WYR_CONCLUSION_INDICATOR}.png"
         image.draw_wyr(self, frame_path)
-        image.draw_wyr_conclusion(self, frame_path, conclusion_path)
+        image.draw_wyr_conclusion(self, conclusion_path)
         
     def __get_auto_filename(self):
         files = utils.get_all_files(config.WYRS_DIR)
