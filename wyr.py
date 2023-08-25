@@ -1,6 +1,7 @@
 from media import sound, image
 from helper import utils, config
 from moviepy.editor import AudioFileClip
+import random
 # from anim import draw_cta, draw_wyr, draw_wyr_conclusion
     
 
@@ -10,10 +11,12 @@ from moviepy.editor import AudioFileClip
 
 class Prompt:
     
-    def __init__(self, text:str, img:str, perc:int) -> None:
+    def __init__(self, text:str, img:str) -> None:
         self.text = text
         self.img = img
-        self.perc = perc
+        self.perc = None
+    def set_perc(self, perc:int):
+        self.perc=perc
     
     def get_dict(self):
         return {
@@ -38,6 +41,11 @@ class WYR(Frame):
     def __init__(self, prompt1:Prompt, prompt2:Prompt, ) -> None:
         self.prompt1 = prompt1
         self.prompt2 = prompt2
+        
+        perc1:int=random.randint(20,80)
+        perc2 = 100 - perc1
+        self.prompt1.set_perc(perc1)
+        self.prompt2.set_perc(perc2)
     
     def get_dict(self):
         return {
@@ -81,7 +89,7 @@ class CTA(Frame):
         
     def make_sound(self, index:int):
         file_path = config.TEMP_DIR+f"{index}{config.CTA_SOUND_INDICATOR}" + ".mp3"
-        sound.make_cta_adio(file_path)
+        sound.make_cta_adio(self.text, file_path)
         
         
     def draw_frame(self, index):

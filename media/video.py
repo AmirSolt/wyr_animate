@@ -1,6 +1,6 @@
 from helper import config, utils
 from moviepy.editor import *
-from moviepy.editor import ImageClip, concatenate_videoclips, CompositeVideoClip
+from moviepy.editor import ImageClip, concatenate_videoclips, AudioFileClip
 
 
 
@@ -22,13 +22,12 @@ def generate_video():
         
         if config.CTA_INDICATOR in image_file:
             audio_clip = AudioFileClip(audio_file)
-            clip = ImageClip(image_file).set_duration(audio_clip.duration).crossfadein(fade_duration)
+            clip = ImageClip(image_file).set_duration(audio_clip.duration).fx(transfx.slide_out, duration=fade_duration, side="left")
             clip = clip.set_audio(audio_clip)
             
         if config.WYR_INDICATOR in image_file:
             audio_clip = AudioFileClip(audio_file)
-            fade_duration = 0.5
-            clip = ImageClip(image_file).set_duration(audio_clip.duration).crossfadein(fade_duration)
+            clip = ImageClip(image_file).set_duration(audio_clip.duration).fx(transfx.slide_out, duration=fade_duration, side="left")
             clip = clip.set_audio(audio_clip)
             
             
@@ -41,8 +40,20 @@ def generate_video():
         if clip:
             clips.append(clip) 
 
-    
     video = concatenate_videoclips(clips, method="compose")
+    music = AudioFileClip(config.STATIC_DIR+"sounds/music.mp3").volumex(0.01)
+    
+    if video.duration < music.duration:
+        music = music.subclip(0, video.duration)
+    if video.duration > music.duration:
+        loops = int(video.duration // music.duration) + 1
+        music_clips = [music]*loops
+        music = concatenate_audioclips(music_clips)
+        music = music.subclip(0, video.duration)
+    
+    
+    final_audio = CompositeAudioClip([video.audio, music])
+    video = video.set_audio(final_audio)
     vids = utils.get_all_files(config.VID_DIR)
     index = len(vids)
     video.write_videofile(config.VID_DIR+f"{index}.mp4", fps=12)  

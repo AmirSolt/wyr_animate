@@ -38,13 +38,12 @@ def generate_tts(text:str, tts_filepath:str):
     wait_until_file_exists(temp_tts_filepath, 1)
     
     song = AudioSegment.from_file(temp_tts_filepath)
-    song.export(tts_filepath, format="mp3")
-
+    song.export(tts_filepath, format="wav")
     
 
 def make_wyr_audio(text:str, filepath:str):
     
-    tts_filepath = config.TRASH_DIR+"tts.mp3"
+    tts_filepath = config.TRASH_DIR+"tts.wav"
     
     generate_tts(text, tts_filepath)
     
@@ -72,11 +71,14 @@ def make_wyr_conc_audio(filepath:str):
     final_audio.write_audiofile(filepath)
 
     
-def make_cta_adio(filepath:str):
+def make_cta_adio(text:str, filepath:str):
     success_path = config.SOUNDS_DIR + "correct_short.mp3"
+    tts_filepath = config.TRASH_DIR+"tts.wav"
+    generate_tts(text, tts_filepath)
     final_audio = concatenate_audioclips([
         AudioFileClip(success_path),
-        silent(duration=2),
+        AudioFileClip(tts_filepath).volumex(1.5),
+        silent(duration=0.9),
     ])
     final_audio.write_audiofile(filepath)
 
